@@ -1,0 +1,421 @@
+{
+  "title": "Survey Kepuasan Pengajaran Mata Kuliah A Kom A 2022/2023",
+  "logoPosition": "right",
+  "pages": [
+    {
+      "name": "page1",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "question1",
+          "title": "Dosen memberikan kesempatan bertanya di dalam kelas",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "Sangat tidak setuju",
+              "text": "Sangat tidak setuju"
+            },
+            {
+              "value": "Tidak setuju",
+              "text": "Tidak setuju"
+            },
+            {
+              "value": "Netral",
+              "text": "Netral"
+            },
+            {
+              "value": "4",
+              "text": "Setuju"
+            },
+            {
+              "value": "5",
+              "text": "Sangat setuju"
+            }
+          ]
+        },
+        {
+          "type": "radiogroup",
+          "name": "question2",
+          "title": "Dosen memberikan kesempatan bertanya di luar kelas",
+          "isRequired": true,
+          "choicesFromQuestion": "question1",
+          "choices": [
+            {
+              "value": "1",
+              "text": "Sangat tidak baik"
+            },
+            {
+              "value": "2",
+              "text": "Tidak baik"
+            },
+            {
+              "value": "3",
+              "text": "Cukup"
+            },
+            {
+              "value": "4",
+              "text": "Baik"
+            },
+            {
+              "value": "5",
+              "text": "Sangat baik"
+            }
+          ]
+        }
+      ],
+      "title": "Kesempatan Bertanya"
+    },
+    {
+      "name": "page2",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "question3",
+          "title": "Dosen menggunakan fitur forum pada e-learning",
+          "isRequired": true,
+          "choicesFromQuestion": "question1",
+          "choices": [
+            {
+              "value": "1",
+              "text": "Sangat tidak baik"
+            },
+            {
+              "value": "2",
+              "text": "Tidak baik"
+            },
+            {
+              "value": "3",
+              "text": "Cukup"
+            },
+            {
+              "value": "4",
+              "text": "Baik"
+            },
+            {
+              "value": "5",
+              "text": "Sangat baik"
+            }
+          ]
+        },
+        {
+          "type": "radiogroup",
+          "name": "question4",
+          "title": "Dosen menggunakan fitur kuis pada e-learning",
+          "isRequired": true,
+          "choicesFromQuestion": "question1",
+          "choices": [
+            {
+              "value": "1",
+              "text": "Sangat tidak baik"
+            },
+            {
+              "value": "2",
+              "text": "Tidak baik"
+            },
+            {
+              "value": "3",
+              "text": "Cukup"
+            },
+            {
+              "value": "4",
+              "text": "Baik"
+            },
+            {
+              "value": "5",
+              "text": "Sangat baik"
+            }
+          ]
+        },
+        {
+          "type": "radiogroup",
+          "name": "question5",
+          "title": "Dosen menggunakan fitur konferensi video pada e-learning",
+          "isRequired": true,
+          "choicesFromQuestion": "question1",
+          "choices": [
+            {
+              "value": "1",
+              "text": "Sangat tidak baik"
+            },
+            {
+              "value": "2",
+              "text": "Tidak baik"
+            },
+            {
+              "value": "3",
+              "text": "Cukup"
+            },
+            {
+              "value": "4",
+              "text": "Baik"
+            },
+            {
+              "value": "5",
+              "text": "Sangat baik"
+            }
+          ]
+        }
+      ],
+      "title": "Penggunaan E-Learning"
+    },
+    {
+      "name": "page3",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "question6",
+          "title": "Dosen secara terbuka menyampaikan hasil tugas",
+          "isRequired": true,
+          "choicesFromQuestion": "question1",
+          "choices": [
+            {
+              "value": "1",
+              "text": "Sangat tidak baik"
+            },
+            {
+              "value": "2",
+              "text": "Tidak baik"
+            },
+            {
+              "value": "3",
+              "text": "Cukup"
+            },
+            {
+              "value": "4",
+              "text": "Baik"
+            },
+            {
+              "value": "5",
+              "text": "Sangat baik"
+            }
+          ]
+        },
+        {
+          "type": "radiogroup",
+          "name": "question7",
+          "title": "Dosen secara terbuka menyampaikan hasil kuis",
+          "isRequired": true,
+          "choicesFromQuestion": "question1",
+          "choices": [
+            {
+              "value": "1",
+              "text": "Sangat tidak baik"
+            },
+            {
+              "value": "2",
+              "text": "Tidak baik"
+            },
+            {
+              "value": "3",
+              "text": "Cukup"
+            },
+            {
+              "value": "4",
+              "text": "Baik"
+            },
+            {
+              "value": "5",
+              "text": "Sangat baik"
+            }
+          ]
+        },
+        {
+          "type": "radiogroup",
+          "name": "question8",
+          "title": "Dosen secara terbuka menyampaikan hasil UTS dan UAS",
+          "isRequired": true,
+          "choicesFromQuestion": "question1",
+          "choices": [
+            {
+              "value": "1",
+              "text": "Sangat tidak baik"
+            },
+            {
+              "value": "2",
+              "text": "Tidak baik"
+            },
+            {
+              "value": "3",
+              "text": "Cukup"
+            },
+            {
+              "value": "4",
+              "text": "Baik"
+            },
+            {
+              "value": "5",
+              "text": "Sangat baik"
+            }
+          ]
+        }
+      ],
+      "title": "Transparansi Nilai"
+    },
+    {
+      "name": "page4",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "question9",
+          "title": "Dosen hadir tepat waktu",
+          "isRequired": true,
+          "choicesFromQuestion": "question1",
+          "choices": [
+            {
+              "value": "1",
+              "text": "Sangat tidak baik"
+            },
+            {
+              "value": "2",
+              "text": "Tidak baik"
+            },
+            {
+              "value": "3",
+              "text": "Cukup"
+            },
+            {
+              "value": "4",
+              "text": "Baik"
+            },
+            {
+              "value": "5",
+              "text": "Sangat baik"
+            }
+          ]
+        },
+        {
+          "type": "radiogroup",
+          "name": "question10",
+          "title": "Perkuliahan dilaksanakan sesuai dengan alokasi waktu",
+          "isRequired": true,
+          "choicesFromQuestion": "question1",
+          "choices": [
+            {
+              "value": "1",
+              "text": "Sangat tidak baik"
+            },
+            {
+              "value": "2",
+              "text": "Tidak baik"
+            },
+            {
+              "value": "3",
+              "text": "Cukup"
+            },
+            {
+              "value": "4",
+              "text": "Baik"
+            },
+            {
+              "value": "5",
+              "text": "Sangat baik"
+            }
+          ]
+        }
+      ],
+      "title": "Kedisiplinan Waktu"
+    },
+    {
+      "name": "page5",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "question11",
+          "title": "Materi yang disampaikan sudah sesuai dengan RPP dan RPS",
+          "isRequired": true,
+          "choicesFromQuestion": "question1",
+          "choices": [
+            {
+              "value": "1",
+              "text": "Sangat tidak baik"
+            },
+            {
+              "value": "2",
+              "text": "Tidak baik"
+            },
+            {
+              "value": "3",
+              "text": "Cukup"
+            },
+            {
+              "value": "4",
+              "text": "Baik"
+            },
+            {
+              "value": "5",
+              "text": "Sangat baik"
+            }
+          ]
+        },
+        {
+          "type": "radiogroup",
+          "name": "question12",
+          "title": "Tugas yang diberikan sudah sesuai dengan beban studi",
+          "isRequired": true,
+          "choicesFromQuestion": "question1",
+          "choices": [
+            {
+              "value": "1",
+              "text": "Sangat tidak baik"
+            },
+            {
+              "value": "2",
+              "text": "Tidak baik"
+            },
+            {
+              "value": "3",
+              "text": "Cukup"
+            },
+            {
+              "value": "4",
+              "text": "Baik"
+            },
+            {
+              "value": "5",
+              "text": "Sangat baik"
+            }
+          ]
+        }
+      ],
+      "title": "Rencana Kontrak Kuliah"
+    },
+    {
+      "name": "page6",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "question13",
+          "title": "Dosen menguasai materi perkuliahan dengan baik",
+          "isRequired": true,
+          "choicesFromQuestion": "question1",
+          "choices": [
+            {
+              "value": "1",
+              "text": "Sangat tidak baik"
+            },
+            {
+              "value": "2",
+              "text": "Tidak baik"
+            },
+            {
+              "value": "3",
+              "text": "Cukup"
+            },
+            {
+              "value": "4",
+              "text": "Baik"
+            },
+            {
+              "value": "5",
+              "text": "Sangat baik"
+            }
+          ]
+        }
+      ],
+      "title": "Penguasaan Materi"
+    },
+    {
+      "name": "page7"
+    }
+  ]
+}
