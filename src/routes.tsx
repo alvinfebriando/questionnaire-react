@@ -1,5 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom';
 import AppLayout from './layout/appLayout';
+import AnswerSimulator from './page/answerSimulator';
 import ErrorPage from './page/error';
 import Home from './page/home';
 import Question from './page/question';
@@ -16,6 +17,10 @@ const router = createBrowserRouter([
       {
         path: '/question',
         element: <Question />,
+      },
+      {
+        path: '/simulate',
+        element: <AnswerSimulator />,
       },
     ],
   },

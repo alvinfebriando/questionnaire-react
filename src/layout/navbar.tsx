@@ -248,4 +248,8 @@ const NAV_ITEMS: Array<NavItem> = [
     label: 'Test',
     href: 'test',
   },
+  {
+    label: 'Answer Simulator',
+    href: 'simulate',
+  },
 ];
