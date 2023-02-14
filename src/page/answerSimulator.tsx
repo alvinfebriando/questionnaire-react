@@ -3,14 +3,61 @@ import {
   Button,
   Flex,
   FormControl,
+  FormErrorMessage,
   FormLabel,
-  Input,
+  Heading,
+  NumberInput,
+  NumberInputField,
+  Radio,
+  RadioGroup,
   Stack,
   useColorModeValue,
 } from '@chakra-ui/react';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { Controller, useFieldArray, useForm } from 'react-hook-form';
+import * as Yup from 'yup';
+
+const AnswerSchema = Yup.object()
+  .shape({
+    questionCount: Yup.number()
+      .min(1, 'Too Short!')
+      .max(20, 'Too Long!')
+      .required(),
+    respondentCount: Yup.number()
+      .min(1, 'Too Short!')
+      .max(100, 'Too Long')
+      .required(),
+  })
+  .required();
+
+type FormValues = {
+  questionCount: number;
+  respondentCount: number;
+  scores: {
+    name: string;
+    score: string;
+  }[];
+};
 
 const AnswerSimulator = () => {
-  const handleSubmit = () => {};
+  const {
+    register,
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm<FormValues>({
+    defaultValues: {
+      questionCount: 1,
+      respondentCount: 1,
+      scores: [{ name: '', score: '1' }],
+    },
+    resolver: yupResolver(AnswerSchema),
+  });
+  const { fields } = useFieldArray({
+    name: 'scores',
+    control: control,
+  });
+
   return (
     <>
       <Flex minH={'90vh'} align={'center'} justify={'center'} margin='0 auto'>
@@ -22,19 +69,51 @@ const AnswerSimulator = () => {
             p={8}
           >
             <Stack spacing={4}>
-              <form onSubmit={handleSubmit}>
-                <FormControl id='questionCount' isRequired>
-                  <FormLabel>Berapa jumlah pertanyaan yang ada?</FormLabel>
-                  <Input type={'number'} />
-                </FormControl>
-                <FormControl id='respondentCount' isRequired>
+              <form
+                onSubmit={handleSubmit(data => {
+                  console.log(data);
+                })}
+              >
+                <FormControl isInvalid={Boolean(errors.respondentCount)}>
                   <FormLabel>Berapa jumlah responden?</FormLabel>
-                  <Input type={'number'} />
+                  <NumberInput>
+                    <NumberInputField {...register('respondentCount')} />
+                  </NumberInput>
+                  <FormErrorMessage>
+                    {errors.respondentCount?.message}
+                  </FormErrorMessage>
                 </FormControl>
                 <Box margin={'1rem 0px'}>
-                  <h3>
-                    Untuk setiap pertanyaan yang ada tentukan skor dominannya
-                  </h3>
+                  <Stack>
+                    <Heading as='h4' size='sm'>
+                      Tentukan skor dominan
+                    </Heading>
+                    {fields.map((field, index) => {
+                      return (
+                        <FormControl key={field.id}>
+                          <FormLabel>Pertanyaan ke {index + 1}</FormLabel>
+                          <Controller
+                            name={`scores.${index}`}
+                            control={control}
+                            render={({ field: { onChange, value } }) => (
+                              <RadioGroup
+                                onChange={onChange}
+                                value={value.score}
+                              >
+                                <Stack direction='row'>
+                                  <Radio value='1'>1</Radio>
+                                  <Radio value='2'>2</Radio>
+                                  <Radio value='3'>3</Radio>
+                                  <Radio value='4'>4</Radio>
+                                  <Radio value='5'>5</Radio>
+                                </Stack>
+                              </RadioGroup>
+                            )}
+                          />
+                        </FormControl>
+                      );
+                    })}
+                  </Stack>
                 </Box>
                 <Stack spacing={10} pt={2}>
                   <Button
