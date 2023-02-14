@@ -83,7 +83,7 @@ const AnswerSimulator = () => {
   return (
     <>
       <Flex minH={'90vh'} align={'center'} justify={'center'} margin='0 auto'>
-        <Stack>
+        <Stack minW={'50rem'}>
           <Box
             rounded={'lg'}
             bg={useColorModeValue('white', 'gray.700')}
@@ -135,7 +135,12 @@ const AnswerSimulator = () => {
                                 onChange={onChange}
                                 value={value.score}
                               >
-                                <Stack direction='row'>
+                                <Stack
+                                  direction='row'
+                                  margin={'0 auto'}
+                                  width={'25rem'}
+                                  justifyContent='space-between'
+                                >
                                   <Radio value='1'>1</Radio>
                                   <Radio value='2'>2</Radio>
                                   <Radio value='3'>3</Radio>
