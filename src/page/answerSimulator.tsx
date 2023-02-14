@@ -10,18 +10,22 @@ import {
   NumberInputField,
   Radio,
   RadioGroup,
+  Select,
   Stack,
   useColorModeValue,
 } from '@chakra-ui/react';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useEffect } from 'react';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import * as Yup from 'yup';
+
+const MAX_QUESTION = 20;
 
 const AnswerSchema = Yup.object()
   .shape({
     questionCount: Yup.number()
       .min(1, 'Too Short!')
-      .max(20, 'Too Long!')
+      .max(MAX_QUESTION, 'Too Long!')
       .required(),
     respondentCount: Yup.number()
       .min(1, 'Too Short!')
@@ -33,10 +37,7 @@ const AnswerSchema = Yup.object()
 type FormValues = {
   questionCount: number;
   respondentCount: number;
-  scores: {
-    name: string;
-    score: string;
-  }[];
+  scores: { score: string }[];
 };
 
 const AnswerSimulator = () => {
@@ -44,19 +45,40 @@ const AnswerSimulator = () => {
     register,
     handleSubmit,
     control,
+    watch,
     formState: { errors },
   } = useForm<FormValues>({
     defaultValues: {
       questionCount: 1,
       respondentCount: 1,
-      scores: [{ name: '', score: '1' }],
+      scores: [{ score: '' }],
     },
     resolver: yupResolver(AnswerSchema),
   });
-  const { fields } = useFieldArray({
+
+  const { fields, append, remove } = useFieldArray({
     name: 'scores',
-    control: control,
+    control,
   });
+
+  const questionCount = watch('questionCount');
+
+  useEffect(() => {
+    // update field array when ticket number changed
+    const newVal = questionCount;
+    const oldVal = fields.length;
+    if (newVal > oldVal) {
+      // append tickets to field array
+      for (let i = oldVal; i < newVal; i++) {
+        append({ score: '' });
+      }
+    } else {
+      // remove tickets from field array
+      for (let i = oldVal; i > newVal; i--) {
+        remove(i - 1);
+      }
+    }
+  }, [questionCount]);
 
   return (
     <>
@@ -83,10 +105,23 @@ const AnswerSimulator = () => {
                     {errors.respondentCount?.message}
                   </FormErrorMessage>
                 </FormControl>
+                <FormControl isInvalid={Boolean(errors.questionCount)}>
+                  <FormLabel>Berapa jumlah pertanyaan yang tersedia?</FormLabel>
+                  <Select {...register('questionCount')}>
+                    {[...Array(MAX_QUESTION)].map((_, i) => (
+                      <option key={i} value={i + 1}>
+                        {i + 1}
+                      </option>
+                    ))}
+                  </Select>
+                  <FormErrorMessage>
+                    {errors.questionCount?.message}
+                  </FormErrorMessage>
+                </FormControl>
                 <Box margin={'1rem 0px'}>
                   <Stack>
                     <Heading as='h4' size='sm'>
-                      Tentukan skor dominan
+                      Tentukan skor dominan yang diinginkan
                     </Heading>
                     {fields.map((field, index) => {
                       return (
