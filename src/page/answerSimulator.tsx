@@ -18,6 +18,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useEffect } from 'react';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import * as Yup from 'yup';
+import { fetchAnswer } from '../api/simulator';
 
 const MAX_QUESTION = 20;
 
@@ -34,10 +35,15 @@ const AnswerSchema = Yup.object()
   })
   .required();
 
-type FormValues = {
+export type FormData = {
   questionCount: number;
   respondentCount: number;
   scores: { score: string }[];
+};
+
+export type FormInput = {
+  respondentCount: number;
+  scores: string[];
 };
 
 const AnswerSimulator = () => {
@@ -47,7 +53,7 @@ const AnswerSimulator = () => {
     control,
     watch,
     formState: { errors },
-  } = useForm<FormValues>({
+  } = useForm<FormData>({
     defaultValues: {
       questionCount: 1,
       respondentCount: 1,
@@ -80,6 +86,11 @@ const AnswerSimulator = () => {
     }
   }, [questionCount]);
 
+  const generateAnswer = async (data: FormData) => {
+    const answer = await fetchAnswer(data);
+    console.log(answer);
+  };
+
   return (
     <>
       <Flex minH={'90vh'} align={'center'} justify={'center'} margin='0 auto'>
@@ -91,11 +102,7 @@ const AnswerSimulator = () => {
             p={8}
           >
             <Stack spacing={4}>
-              <form
-                onSubmit={handleSubmit(data => {
-                  console.log(data);
-                })}
-              >
+              <form onSubmit={handleSubmit(generateAnswer)}>
                 <FormControl isInvalid={Boolean(errors.respondentCount)}>
                   <FormLabel>Berapa jumlah responden?</FormLabel>
                   <NumberInput>
@@ -132,7 +139,9 @@ const AnswerSimulator = () => {
                             control={control}
                             render={({ field: { onChange, value } }) => (
                               <RadioGroup
-                                onChange={onChange}
+                                onChange={e => {
+                                  onChange({ score: e });
+                                }}
                                 value={value.score}
                               >
                                 <Stack
