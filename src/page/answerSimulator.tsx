@@ -58,7 +58,7 @@ const AnswerSimulator = () => {
     formState: { errors },
   } = useForm<FormData>({
     defaultValues: {
-      questionCount: 1,
+      questionCount: 13,
       respondentCount: 1,
       scores: [{ score: '' }],
     },
@@ -119,7 +119,7 @@ const AnswerSimulator = () => {
                 </FormControl>
                 <FormControl isInvalid={Boolean(errors.questionCount)}>
                   <FormLabel>Berapa jumlah pertanyaan yang tersedia?</FormLabel>
-                  <Select {...register('questionCount')}>
+                  <Select {...register('questionCount')} isDisabled={true}>
                     {[...Array(MAX_QUESTION)].map((_, i) => (
                       <option key={i} value={i + 1}>
                         {i + 1}
