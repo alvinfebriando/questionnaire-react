@@ -1,6 +1,8 @@
 import {
   Box,
   Button,
+  Card,
+  CardBody,
   Flex,
   FormControl,
   FormErrorMessage,
@@ -12,10 +14,11 @@ import {
   RadioGroup,
   Select,
   Stack,
+  Text,
   useColorModeValue,
 } from '@chakra-ui/react';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import * as Yup from 'yup';
 import { fetchAnswer } from '../api/simulator';
@@ -69,6 +72,8 @@ const AnswerSimulator = () => {
 
   const questionCount = watch('questionCount');
 
+  const [scores, setScores] = useState<string>('[ ]');
+
   useEffect(() => {
     // update field array when ticket number changed
     const newVal = questionCount;
@@ -88,7 +93,7 @@ const AnswerSimulator = () => {
 
   const generateAnswer = async (data: FormData) => {
     const answer = await fetchAnswer(data);
-    console.log(answer);
+    setScores(JSON.stringify(answer.scores));
   };
 
   return (
@@ -180,6 +185,13 @@ const AnswerSimulator = () => {
               </form>
             </Stack>
           </Box>
+          <Card>
+            <CardBody>
+              <Flex>
+                <Text>Result: {scores}</Text>
+              </Flex>
+            </CardBody>
+          </Card>
         </Stack>
       </Flex>
     </>
