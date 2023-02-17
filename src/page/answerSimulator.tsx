@@ -35,6 +35,11 @@ const AnswerSchema = Yup.object()
       .min(1, 'Too Short!')
       .max(100, 'Too Long')
       .required(),
+    scores: Yup.array().of(
+      Yup.object().shape({
+        score: Yup.string().required('Field is required'),
+      })
+    ),
   })
   .required();
 
@@ -137,8 +142,14 @@ const AnswerSimulator = () => {
                     </Heading>
                     {fields.map((field, index) => {
                       return (
-                        <FormControl key={field.id}>
+                        <FormControl
+                          key={field.id}
+                          isInvalid={Boolean(errors.scores?.[index])}
+                        >
                           <FormLabel>Pertanyaan ke {index + 1}</FormLabel>
+                          <FormErrorMessage>
+                            {errors.scores?.[index]?.score?.message}
+                          </FormErrorMessage>
                           <Controller
                             name={`scores.${index}`}
                             control={control}
