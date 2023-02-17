@@ -1,8 +1,6 @@
 import {
   Box,
   Button,
-  Card,
-  CardBody,
   Flex,
   FormControl,
   FormErrorMessage,
@@ -10,18 +8,17 @@ import {
   Heading,
   NumberInput,
   NumberInputField,
-  Radio,
-  RadioGroup,
   Select,
   Stack,
-  Text,
   useColorModeValue,
 } from '@chakra-ui/react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useEffect, useState } from 'react';
-import { Controller, useFieldArray, useForm } from 'react-hook-form';
+import { useFieldArray, useForm } from 'react-hook-form';
 import * as Yup from 'yup';
 import { fetchAnswer } from '../api/simulator';
+import Result from '../components/result';
+import ScoreInput from '../components/scoreInput';
 
 const MAX_QUESTION = 20;
 
@@ -142,40 +139,12 @@ const AnswerSimulator = () => {
                     </Heading>
                     {fields.map((field, index) => {
                       return (
-                        <FormControl
+                        <ScoreInput
                           key={field.id}
-                          isInvalid={Boolean(errors.scores?.[index])}
-                        >
-                          <FormLabel>Pertanyaan ke {index + 1}</FormLabel>
-                          <FormErrorMessage>
-                            {errors.scores?.[index]?.score?.message}
-                          </FormErrorMessage>
-                          <Controller
-                            name={`scores.${index}`}
-                            control={control}
-                            render={({ field: { onChange, value } }) => (
-                              <RadioGroup
-                                onChange={e => {
-                                  onChange({ score: e });
-                                }}
-                                value={value.score}
-                              >
-                                <Stack
-                                  direction='row'
-                                  margin={'0 auto'}
-                                  width={'25rem'}
-                                  justifyContent='space-between'
-                                >
-                                  <Radio value='1'>1</Radio>
-                                  <Radio value='2'>2</Radio>
-                                  <Radio value='3'>3</Radio>
-                                  <Radio value='4'>4</Radio>
-                                  <Radio value='5'>5</Radio>
-                                </Stack>
-                              </RadioGroup>
-                            )}
-                          />
-                        </FormControl>
+                          index={index}
+                          errors={errors}
+                          control={control}
+                        />
                       );
                     })}
                   </Stack>
@@ -196,13 +165,7 @@ const AnswerSimulator = () => {
               </form>
             </Stack>
           </Box>
-          <Card>
-            <CardBody>
-              <Flex>
-                <Text>Result: {scores}</Text>
-              </Flex>
-            </CardBody>
-          </Card>
+          <Result scores={scores}></Result>
         </Stack>
       </Flex>
     </>
