@@ -15,8 +15,11 @@ import {
   useColorModeValue,
 } from '@chakra-ui/react';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import * as Yup from 'yup';
+import { submitSurvey } from '../api/survey';
+import Result from '../components/result';
 
 type QuestionInput = {
   name: keyof FormValues;
@@ -63,8 +66,31 @@ const SurveySchema = Yup.object().shape({
   subject: Yup.string().required('Required!!'),
   respondent: Yup.string().required('Required!!'),
   lecturer: Yup.string().required('Required!!'),
-  answers: Yup.string().required('Required!!'),
+  answers: Yup.string()
+    .required('Required!!')
+    .test('isValidAnswer', 'Invalid!!', (v, ctx) => {
+      try {
+        let data = JSON.parse(v as string);
+        if (isValidArray(data)) {
+          if (isValidArray(data[0])) {
+            return true;
+          }
+        }
+        return false;
+      } catch (error) {
+        return false;
+      }
+    }),
 });
+
+const isValidArray = (v: any) => {
+  if (v instanceof Array) {
+    if (v.length !== 0) {
+      return true;
+    }
+  }
+  return false;
+};
 
 export type FormValues = {
   place: string;
@@ -76,6 +102,7 @@ export type FormValues = {
 };
 
 const Survey = () => {
+  const [result, setResult] = useState('');
   const {
     register,
     handleSubmit,
@@ -99,7 +126,12 @@ const Survey = () => {
             p={8}
           >
             <Stack spacing={4}>
-              <form onSubmit={handleSubmit(data => console.log(data))}>
+              <form
+                onSubmit={handleSubmit(async data => {
+                  const result = await submitSurvey(data);
+                  setResult(result);
+                })}
+              >
                 <>
                   {surveyQuestion.map((v, i) => {
                     let type;
@@ -142,6 +174,7 @@ const Survey = () => {
               </form>
             </Stack>
           </Box>
+          <Result scores={result} />
         </Stack>
       </Flex>
     </div>
