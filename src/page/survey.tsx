@@ -3,11 +3,18 @@ import {
   Button,
   Flex,
   FormControl,
+  FormErrorMessage,
   FormLabel,
   Input,
+  NumberDecrementStepper,
+  NumberIncrementStepper,
+  NumberInput,
+  NumberInputField,
+  NumberInputStepper,
   Stack,
   useColorModeValue,
 } from '@chakra-ui/react';
+import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import * as Yup from 'yup';
 
@@ -25,20 +32,38 @@ const surveyQuestion: QuestionInput[] = [
   },
   {
     name: 'date',
-    label: 'Tanggal berapa survey dilaksanakkan',
+    label: 'Tanggal survey dilaksanakkan',
     type: 'date',
+  },
+  {
+    name: 'subject',
+    label: 'Judul survey',
+    type: 'text',
+  },
+  {
+    name: 'respondent',
+    label: 'Jumlah responden',
+    type: 'text',
+  },
+  {
+    name: 'lecturer',
+    label: 'Nama dosen',
+    type: 'text',
+  },
+  {
+    name: 'answers',
+    label: 'Jawaban',
+    type: 'text',
   },
 ];
 
 const SurveySchema = Yup.object().shape({
-  place: Yup.string().required(),
-  date: Yup.date().required(),
-  subject: Yup.string().required(),
-  respondent: Yup.string().required(),
-  lecturer: Yup.string().required(),
-  questionCount: Yup.number().required(),
-  aspectCount: Yup.number().required(),
-  answer: Yup.string().required(),
+  place: Yup.string().required('Required!!'),
+  date: Yup.date().required('Required!!'),
+  subject: Yup.string().required('Required!!'),
+  respondent: Yup.string().required('Required!!'),
+  lecturer: Yup.string().required('Required!!'),
+  answers: Yup.string().required('Required!!'),
 });
 
 export type FormValues = {
@@ -47,13 +72,17 @@ export type FormValues = {
   subject: string;
   respondent: string;
   lecturer: string;
-  questionCount: number;
-  aspectCount: number;
   answers: string;
 };
 
 const Survey = () => {
-  const { register, handleSubmit, control } = useForm<FormValues>();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormValues>({
+    resolver: yupResolver(SurveySchema),
+  });
   return (
     <div>
       <Flex
@@ -74,14 +103,25 @@ const Survey = () => {
                 <>
                   {surveyQuestion.map((v, i) => {
                     let type;
-                    if (v.type == 'text') {
+                    if (v.type === 'text') {
                       type = <Input {...register(v.name)} />;
-                    } else if (v.type == 'date') {
+                    } else if (v.type === 'date') {
+                      type = (
+                        <Input
+                          placeholder='Select Date and Time'
+                          size='md'
+                          type='date'
+                          {...register(v.name)}
+                        />
+                      );
                     }
                     return (
-                      <FormControl key={i}>
+                      <FormControl key={i} isInvalid={Boolean(errors[v.name])}>
                         <FormLabel>{v.label}</FormLabel>
                         {type}
+                        <FormErrorMessage>
+                          {errors[v.name]?.message}
+                        </FormErrorMessage>
                       </FormControl>
                     );
                   })}
