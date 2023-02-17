@@ -11,6 +11,7 @@ const Content = (props: ContentProps) => {
         <Flex
           maxW={'960px'}
           margin={'0 auto'}
+          justifyContent={'center'}
           py={{ base: 2 }}
           px={{ base: 4 }}
         >
