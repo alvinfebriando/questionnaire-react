@@ -3,7 +3,7 @@ import AppLayout from './layout/appLayout';
 import AnswerSimulator from './page/answerSimulator';
 import ErrorPage from './page/error';
 import Home from './page/home';
-import Question from './page/question';
+import Survey from './page/survey';
 
 const router = createBrowserRouter([
   {
@@ -15,8 +15,8 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: '/question',
-        element: <Question />,
+        path: '/survey',
+        element: <Survey />,
       },
       {
         path: '/simulate',

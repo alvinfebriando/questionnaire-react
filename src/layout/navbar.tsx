@@ -241,12 +241,8 @@ interface NavItem {
 
 const NAV_ITEMS: Array<NavItem> = [
   {
-    label: 'Question',
-    href: 'question',
-  },
-  {
-    label: 'Test',
-    href: 'test',
+    label: 'Survey',
+    href: 'survey',
   },
   {
     label: 'Answer Simulator',
