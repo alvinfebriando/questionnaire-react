@@ -68,26 +68,31 @@ const SurveySchema = Yup.object().shape({
   lecturer: Yup.string().required('Required!!'),
   answers: Yup.string()
     .required('Required!!')
-    .test('isValidAnswer', 'Invalid!!', (v, ctx) => {
+    .test((v, ctx) => {
       try {
         let data = JSON.parse(v as string);
-        if (isValidArray(data)) {
-          if (isValidArray(data[0])) {
+        if (isValidArray(data, ctx, 13)) {
+          if (isValidArray(data[0], ctx)) {
             return true;
           }
         }
-        return false;
+        return ctx.createError({ message: 'Invalid input!!' });
       } catch (error) {
-        return false;
+        return ctx.createError({ message: 'Is not a valid JSON!!' });
       }
     }),
 });
 
-const isValidArray = (v: any) => {
+const isValidArray = (
+  v: any,
+  ctx: Yup.TestContext<Yup.AnyObject>,
+  count?: number
+) => {
   if (v instanceof Array) {
-    if (v.length !== 0) {
-      return true;
+    if (count != null) {
+      return v.length === count;
     }
+    return v.length === parseInt(ctx.parent.respondent);
   }
   return false;
 };
