@@ -8,7 +8,7 @@ const Result = (props: Props) => (
   <Card>
     <CardBody>
       <Flex>
-        <Text>Result: {props.scores}</Text>
+        <Text style={{ whiteSpace: 'pre-wrap' }}>Result: {props.scores}</Text>
       </Flex>
     </CardBody>
   </Card>
