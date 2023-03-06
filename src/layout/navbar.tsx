@@ -34,7 +34,7 @@ export default function WithSubnavigation() {
       color={useColorModeValue('white', 'gray.600')}
     >
       <Flex
-        maxW={'960px'}
+        maxW={'760px'}
         margin='0 auto'
         minH={'60px'}
         py={{ base: 2 }}
@@ -240,10 +240,6 @@ interface NavItem {
 }
 
 const NAV_ITEMS: Array<NavItem> = [
-  {
-    label: 'Survey',
-    href: 'survey',
-  },
   {
     label: 'Answer Simulator',
     href: 'simulate',
