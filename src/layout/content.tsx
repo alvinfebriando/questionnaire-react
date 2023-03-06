@@ -9,7 +9,7 @@ const Content = (props: ContentProps) => {
     <>
       <Box>
         <Flex
-          maxW={'960px'}
+          maxW={'760px'}
           margin={'0 auto'}
           justifyContent={'center'}
           py={{ base: 2 }}
