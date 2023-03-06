@@ -28,3 +28,15 @@ export const fetchAnswer = async (
   const data: JSONResponse = await response.json();
   return data;
 };
+
+export const fetchQuestions = async () => {
+  const url = 'https://localhost:7145/api/question';
+  const response = await fetch(url, {
+    method: 'GET',
+    headers: {
+      'content-type': 'application/json; charset=utf-8',
+    },
+  });
+  const data = await response.json();
+  return data;
+};

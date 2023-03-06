@@ -13,10 +13,10 @@ import {
   useColorModeValue,
 } from '@chakra-ui/react';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 import * as Yup from 'yup';
-import { fetchAnswer } from '../api/simulator';
+import { fetchAnswer, fetchQuestions } from '../api/simulator';
 import Result from '../components/result';
 import ScoreInput from '../components/scoreInput';
 
@@ -75,6 +75,18 @@ const AnswerSimulator = () => {
   const questionCount = watch('questionCount');
 
   const [scores, setScores] = useState<string>('[ ]');
+  const [questions, setQuestions] = useState<string[]>(
+    [...Array(questionCount).keys()].map(x => '')
+  );
+
+  const getQuestions = useCallback(async () => {
+    const questions = await fetchQuestions();
+    setQuestions(questions.questions);
+  }, []);
+
+  useEffect(() => {
+    getQuestions();
+  }, []);
 
   useEffect(() => {
     // update field array when ticket number changed
@@ -140,6 +152,7 @@ const AnswerSimulator = () => {
                     {fields.map((field, index) => {
                       return (
                         <ScoreInput
+                          question={questions[index]}
                           key={field.id}
                           index={index}
                           errors={errors}
