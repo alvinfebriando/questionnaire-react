@@ -61,7 +61,7 @@ const AnswerSimulator = () => {
   } = useForm<FormData>({
     defaultValues: {
       questionCount: 13,
-      respondentCount: 1,
+      respondentCount: 50,
       scores: [{ score: '' }],
     },
     resolver: yupResolver(AnswerSchema),
