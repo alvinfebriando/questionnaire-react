@@ -51,6 +51,11 @@ export type FormInput = {
   scores: string[];
 };
 
+export type QuestionData = {
+  id: string;
+  question: string;
+};
+
 const AnswerSimulator = () => {
   const {
     register,
@@ -75,8 +80,8 @@ const AnswerSimulator = () => {
   const questionCount = watch('questionCount');
 
   const [scores, setScores] = useState<string>('[ ]');
-  const [questions, setQuestions] = useState<string[]>(
-    [...Array(questionCount).keys()].map(x => '')
+  const [questions, setQuestions] = useState<QuestionData[]>(
+    [...Array(questionCount).keys()].map(x => ({ id: '', question: '' }))
   );
 
   const getQuestions = useCallback(async () => {

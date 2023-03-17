@@ -7,16 +7,17 @@ import {
   Radio,
 } from '@chakra-ui/react';
 import { Controller, FieldArrayWithId, FieldErrors } from 'react-hook-form';
+import { QuestionData } from '../page/answerSimulator';
 
 type Props = {
-  question: string;
+  question: QuestionData;
   index: number;
   errors: any;
   control: any;
 };
 
 const ScoreInput = (props: Props) => {
-  let label = props.question;
+  let label = props.question.question;
   label = label.charAt(0).toUpperCase() + label.slice(1);
   return (
     <FormControl isInvalid={Boolean(props.errors.scores?.[props.index])}>
